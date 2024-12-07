@@ -1,97 +1,162 @@
-from flask import Flask, render_template, request, jsonify
-from utils.helpers import (
+from flask import Flask, render_template, request, jsonify, redirect
+from utils import (
     initialize_database,
-    add_exercise,
     get_exercises,
+    add_exercise,
     get_user_selection,
     calculate_weekly_summary,
-    get_weekly_summary,
 )
-from utils.data_handler import DataHandler
+from utils.database import DatabaseHandler
 
 app = Flask(__name__)
 
 # Initialize the database
 initialize_database()
 
+
 @app.route("/")
 def index():
     return redirect("/workout_plan")
 
+
 @app.route("/workout_plan")
 def workout_plan():
-    exercises = get_exercises()
-    user_selection = get_user_selection()
+    try:
+        # Fetch exercises and user selection
+        exercises = get_exercises()
+        user_selection = get_user_selection()
 
-    # Fetch unique values for filtering
-    connection = DataHandler()
-    primary_muscle_groups = connection.fetch_unique_values("exercises", "primary_muscle_group")
-    secondary_muscle_groups = connection.fetch_unique_values("exercises", "secondary_muscle_group")
-    tertiary_muscle_groups = connection.fetch_unique_values("exercises", "tertiary_muscle_group")
-    forces = connection.fetch_unique_values("exercises", "force")
-    equipments = connection.fetch_unique_values("exercises", "equipment")
-    mechanics = connection.fetch_unique_values("exercises", "mechanic")
-    difficulties = connection.fetch_unique_values("exercises", "difficulty")
-    connection.close_connection()
+        # Fetch unique values for filters
+        with DatabaseHandler() as db_handler:
+            filters = {
+                "Primary Muscle Group": db_handler.fetch_unique_values("exercises", "primary_muscle_group"),
+                "Secondary Muscle Group": db_handler.fetch_unique_values("exercises", "secondary_muscle_group"),
+                "Tertiary Muscle Group": db_handler.fetch_unique_values("exercises", "tertiary_muscle_group"),
+                "Force": db_handler.fetch_unique_values("exercises", "force"),
+                "Equipment": db_handler.fetch_unique_values("exercises", "equipment"),
+                "Mechanic": db_handler.fetch_unique_values("exercises", "mechanic"),
+                "Difficulty": db_handler.fetch_unique_values("exercises", "difficulty"),
+            }
 
-    return render_template(
-        "workout_plan.html",
-        exercises=exercises,
-        user_selection=user_selection,
-        primary_muscle_groups=primary_muscle_groups,
-        secondary_muscle_groups=secondary_muscle_groups,
-        tertiary_muscle_groups=tertiary_muscle_groups,
-        forces=forces,
-        equipments=equipments,
-        mechanics=mechanics,
-        difficulties=difficulties,
-        enumerate=enumerate,
-    )
+        # Routine options grouped by split type
+        routine_options = {
+            "4 Week Split": ["A1", "B1", "A2", "B2"],
+            "Full Body": ["Fullbody1", "Fullbody2", "Fullbody3"],
+            "Push, Pull, Legs": ["Push1", "Pull1", "Legs1", "Push2", "Pull2", "Legs2"],
+            "2 Days Split": ["A", "B"],
+            "Upper Lower": ["Upper1", "Lower1", "Upper2", "Lower2"],
+            "3 Days Split": ["A", "B", "C"],
+        }
+
+        return render_template(
+            "workout_plan.html",
+            exercises=exercises,
+            user_selection=user_selection,
+            filters=filters,
+            routineOptions=routine_options,
+            enumerate=enumerate,
+        )
+    except Exception as e:
+        print(f"Error in workout_plan: {e}")
+        return render_template("error.html", message="Unable to load workout plan"), 500
+
 
 @app.route("/add_exercise", methods=["POST"])
 def add_exercise_route():
-    data = request.get_json()
-    routine = data.get("routine")
-    exercise = data.get("exercise")
-    sets = data.get("sets")
-    min_rep_range = data.get("min_rep_range")
-    max_rep_range = data.get("max_rep_range")
-    rir = data.get("rir")
-    weight = data.get("weight")
-    add_exercise(routine, exercise, sets, min_rep_range, max_rep_range, rir, weight)
-    return jsonify({"message": "Exercise added successfully"}), 200
+    try:
+        data = request.get_json()
+        routine = data.get("routine")
+        exercise = data.get("exercise")
+        sets = data.get("sets")
+        min_rep_range = data.get("min_rep_range")
+        max_rep_range = data.get("max_rep_range")
+        rir = data.get("rir")
+        weight = data.get("weight")
+
+        if not (routine and exercise and sets and min_rep_range and max_rep_range and weight):
+            return jsonify({"message": "Missing required fields"}), 400
+
+        add_exercise(routine, exercise, sets, min_rep_range, max_rep_range, rir, weight)
+        return jsonify({"message": "Exercise added successfully"}), 200
+    except Exception as e:
+        print(f"Error in add_exercise: {e}")
+        return jsonify({"error": "Unable to add exercise"}), 500
+
 
 @app.route("/remove_exercise", methods=["POST"])
 def remove_exercise():
-    data = request.get_json()
-    routine = data.get("routine")
-    exercise = data.get("exercise")
+    try:
+        data = request.get_json()
+        routine = data.get("routine")
+        exercise = data.get("exercise")
 
-    print(f"Payload received: {data}")  # Debugging log
+        if routine and exercise:
+            with DatabaseHandler() as db_handler:
+                db_handler.execute_query(
+                    "DELETE FROM user_selection WHERE routine = ? AND exercise = ?",
+                    (routine, exercise),
+                )
+            return jsonify({"message": "Exercise removed successfully"}), 200
 
-    if routine and exercise:
-        db_handler = DataHandler()
-        db_handler.execute_query(
-            "DELETE FROM user_selection WHERE routine = ? AND exercise = ?",
-            (routine, exercise)
-        )
-        db_handler.close_connection()
-        return jsonify({"message": "Exercise removed successfully"}), 200
+        return jsonify({"message": "Invalid request"}), 400
+    except Exception as e:
+        print(f"Error in remove_exercise: {e}")
+        return jsonify({"error": "Unable to remove exercise"}), 500
 
-    return jsonify({"message": "Invalid request"}), 400
 
 @app.route("/filter_exercises", methods=["POST"])
 def filter_exercises():
-    filters = request.get_json()
-    exercises = get_exercises(filters=filters)
-    return jsonify(exercises)
+    try:
+        filters = request.get_json()
+        if not filters:
+            return jsonify({"message": "No filters provided"}), 400
+        exercises = get_exercises(filters=filters)
+        return jsonify(exercises)
+    except Exception as e:
+        print(f"Error in filter_exercises: {e}")
+        return jsonify({"error": "Unable to filter exercises"}), 500
+
 
 @app.route("/weekly_summary", methods=["GET"])
 def weekly_summary():
-    method = request.args.get("method", "Total")  # Default to "Total" method
-    calculate_weekly_summary(method=method)
-    summary = get_weekly_summary()
-    return render_template("weekly_summary.html", summary=summary, selected_method=method)
+    method = request.args.get("method", "Total")
+    try:
+        # Fetch data from the database
+        results = calculate_weekly_summary(method)
+
+        # Format results for JSON response
+        summary = [
+            {
+                "muscle_group": row["muscle_group"],
+                "total_sets": row["total_sets"],
+                "total_reps": row["total_reps"],
+                "total_weight": row["total_weight"],
+            }
+            for row in results
+        ]
+
+        # Check if the request expects JSON
+        if request.headers.get("Accept") == "application/json":
+            return jsonify(summary)
+
+        # Render the HTML page if it's a browser request
+        return render_template(
+            "weekly_summary.html",
+            summary=summary,
+            selected_method=method,
+        )
+
+    except Exception as e:
+        error_details = str(e)
+        print(f"Error in weekly_summary: {error_details}")
+
+        # If JSON is expected, return an appropriate JSON error response
+        if request.headers.get("Accept") == "application/json":
+            return jsonify({"error": "Unable to fetch weekly summary", "details": error_details}), 500
+
+        # For HTML responses, show an error page
+        return render_template("error.html", message="Unable to fetch weekly summary"), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

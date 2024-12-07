@@ -1,0 +1,33 @@
+<h3 class="mt-5">Your Workout Plan</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Routine</th>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Min Rep Range</th>
+            <th>Max Rep Range</th>
+            <th>RIR</th>
+            <th>Weight</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i, selection in enumerate(user_selection) %}
+        <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ selection[0] }}</td>
+            <td>{{ selection[1] }}</td>
+            <td>{{ selection[2] }}</td>
+            <td>{{ selection[3] }}</td>
+            <td>{{ selection[4] }}</td>
+            <td>{{ selection[5] }}</td>
+            <td>{{ selection[6] }}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="removeExercise('{{ selection[0] }}', '{{ selection[1] }}')">Remove</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
