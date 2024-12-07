@@ -7,53 +7,101 @@
     <div class="mb-3">
         <label for="method" class="form-label">Calculation Method:</label>
         <select id="method" class="form-select" onchange="updateSummary()">
-            <option value="Total" {% if selected_method == "Total" %}selected{% endif %}>Total</option>
-            <option value="Fractional" {% if selected_method == "Fractional" %}selected{% endif %}>Fractional</option>
-            <option value="Direct" {% if selected_method == "Direct" %}selected{% endif %}>Direct</option>
+            <option value="Total" {% if selected_method == "Total" %}selected{% endif %}>
+                Total (Includes all primary, secondary, and tertiary contributions)
+            </option>
+            <option value="Fractional" {% if selected_method == "Fractional" %}selected{% endif %}>
+                Fractional (Weighted contributions: primary (50%), secondary (25%), tertiary (17%))
+            </option>
+            <option value="Direct" {% if selected_method == "Direct" %}selected{% endif %}>
+                Direct (Primary muscle group only)
+            </option>
         </select>
     </div>
 
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
-                <th>Muscle Group</th>
-                <th>Total Sets</th>
-                <th>Total Reps</th>
-                <th>Total Weight</th>
-            </tr>
-        </thead>
-        <tbody id="weekly-summary-table">
-            {% if summary %}
-                {% for muscle_group, total_sets, total_reps, total_weight in summary %}
-                    <tr>
-                        <td>{{ muscle_group }}</td>
-                        <td>{{ total_sets }}</td>
-                        <td>{{ total_reps }}</td>
-                        <td>{{ total_weight }}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
+    <div class="table-responsive">
+        <table class="table table-striped mt-4">
+            <thead>
                 <tr>
-                    <td colspan="4" class="text-center text-muted">No data available.</td>
+                    <th>Muscle Group</th>
+                    <th>Total Sets</th>
+                    <th>Total Reps</th>
+                    <th>Total Weight</th>
                 </tr>
-            {% endif %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="weekly-summary-table">
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        Unable to fetch data. Please try again later.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <div id="explanation-index">
+        <h5>Explanation of Calculation Methods</h5>
+        <ul>
+            <li><strong>Total:</strong> Includes contributions from the primary, secondary, and tertiary muscle groups. Primary muscle groups have full weight (100%), secondary have half weight (50%), and tertiary have one-third weight (33%).</li>
+            <li><strong>Fractional:</strong> Calculates fractional contributions from each muscle group. Weighted percentages are as follows: primary (50%), secondary (25%), and tertiary (17%).</li>
+            <li><strong>Direct:</strong> Considers only the primary muscle group for each exercise.</li>
+        </ul>
+    </div>
 </div>
 
 <script>
-    async function updateSummary() {
-        const method = document.getElementById('method').value;
-        try {
-            const response = await fetch(`/weekly_summary?method=${method}`);
-            const data = await response.json();
-            const tableBody = document.getElementById('weekly-summary-table');
-            tableBody.innerHTML = data.length
-                ? data.map(row => `<tr>${row.map(item => `<td>${item}</td>`).join('')}</tr>`).join('')
-                : `<tr><td colspan="4" class="text-center text-muted">No data available.</td></tr>`;
-        } catch (error) {
-            console.error('Error fetching summary:', error);
+async function updateSummary() {
+    const method = document.getElementById("method").value;
+    const tableBody = document.getElementById("weekly-summary-table");
+
+    try {
+        // Explicitly request JSON
+        const response = await fetch(`/weekly_summary?method=${method}`, {
+            headers: { "Accept": "application/json" },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        // Parse the response as JSON
+        const data = await response.json();
+
+        // Validate the data is an array
+        if (!Array.isArray(data)) {
+            throw new Error("Expected an array of summary data");
+        }
+
+        // Populate the table
+        tableBody.innerHTML = data.length
+            ? data.map(row => `
+                <tr>
+                    <td>${row.muscle_group || "N/A"}</td>
+                    <td>${Number(row.total_sets).toFixed(1)}</td>
+                    <td>${Number(row.total_reps).toFixed(1)}</td>
+                    <td>${Number(row.total_weight).toFixed(1)}</td>
+                </tr>`).join("")
+            : `<tr><td colspan="4" class="text-center text-muted">No data available.</td></tr>`;
+    } catch (error) {
+        console.error("Error fetching weekly summary:", error);
+        alert(`Error fetching data: ${error.message}`);
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="4" class="text-center text-danger">
+                    Unable to fetch data. Please try again later.
+                </td>
+            </tr>`;
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateSummary();
+});
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        updateSummary();
+    });
 </script>
 {% endblock %}

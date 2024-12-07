@@ -4,258 +4,198 @@
 <div class="container">
     <h2>Workout Plan</h2>
 
-    <!-- Filtering Controls -->
+    <!-- Filters for Exercises -->
     <div class="filters">
         <h4>Filter Exercises</h4>
-        <div class="row mb-3">
+        <form id="filters-form" class="row">
+            {% for filter_name, filter_options in filters.items() %}
             <div class="col-md-4">
-                <label for="primary_muscle_group" class="form-label">Primary Muscle Group</label>
-                <select id="primary_muscle_group" class="form-select">
+                <label for="{{ filter_name }}" class="form-label">{{ filter_name }}</label>
+                <select id="{{ filter_name }}" class="form-select">
                     <option value="">All</option>
-                    {% for muscle_group in primary_muscle_groups %}
-                        <option value="{{ muscle_group }}">{{ muscle_group }}</option>
+                    {% for option in filter_options %}
+                    <option value="{{ option }}">{{ option }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                <label for="secondary_muscle_group" class="form-label">Secondary Muscle Group</label>
-                <select id="secondary_muscle_group" class="form-select">
-                    <option value="">All</option>
-                    {% for muscle_group in secondary_muscle_groups %}
-                        <option value="{{ muscle_group }}">{{ muscle_group }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="tertiary_muscle_group" class="form-label">Tertiary Muscle Group</label>
-                <select id="tertiary_muscle_group" class="form-select">
-                    <option value="">All</option>
-                    {% for muscle_group in tertiary_muscle_groups %}
-                        <option value="{{ muscle_group }}">{{ muscle_group }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="force" class="form-label">Force</label>
-                <select id="force" class="form-select">
-                    <option value="">All</option>
-                    {% for force_option in forces %}
-                        <option value="{{ force_option }}">{{ force_option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="equipment" class="form-label">Equipment</label>
-                <select id="equipment" class="form-select">
-                    <option value="">All</option>
-                    {% for equipment_option in equipments %}
-                        <option value="{{ equipment_option }}">{{ equipment_option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="difficulty" class="form-label">Difficulty</label>
-                <select id="difficulty" class="form-select">
-                    <option value="">All</option>
-                    {% for difficulty_option in difficulties %}
-                        <option value="{{ difficulty_option }}">{{ difficulty_option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <button class="btn btn-primary mt-2" onclick="filterExercises()">Filter</button>
-    </div>
-
-    <!-- Exercise Dropdown -->
-    <div class="mt-4">
-        <label for="exercise" class="form-label">Exercise</label>
-        <select id="exercise" class="form-select">
-            {% for exercise in exercises %}
-                <option value="{{ exercise }}">{{ exercise }}</option>
             {% endfor %}
-        </select>
+        </form>
+        <button class="btn btn-primary mt-3" onclick="filterExercises()">Filter</button>
     </div>
 
-    <!-- Add Exercise Form -->
-    <form id="add-exercise-form" class="mt-4">
-        <div class="row">
-            <!-- Split Type Dropdown -->
-            <div class="col-md-4">
-                <label for="split_type" class="form-label">Split Type</label>
-                <select id="split_type" class="form-select" onchange="updateRoutineOptions()">
-                    <option value="">Select Split Type</option>
-                    <option value="4_week_split">4 Week Split</option>
-                    <option value="full_body">Full Body</option>
-                    <option value="push_pull_legs">Push, Pull, Legs</option>
-                    <option value="2_days_split">2 Days Split</option>
-                    <option value="upper_lower">Upper Lower</option>
-                    <option value="3_days_split">3 Days Split</option>
-                </select>
+    <!-- Exercise Selection and Form -->
+    <div class="exercise-selection mt-4">
+        <form id="add-exercise-form">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="routine" class="form-label">Routine</label>
+                    <select id="routine" class="form-select">
+                        {% for split_type, routines in routineOptions.items() %}
+                        <optgroup label="{{ split_type }}">
+                            {% for routine in routines %}
+                            <option value="{{ routine }}">{{ routine }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="exercise" class="form-label">Exercise</label>
+                    <select id="exercise" class="form-select">
+                        {% for exercise in exercises %}
+                        <option value="{{ exercise }}">{{ exercise }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="sets" class="form-label">Sets</label>
+                    <input type="number" id="sets" class="form-control" min="1" value="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="rir" class="form-label">RIR</label>
+                    <input type="number" id="rir" class="form-control" min="0" value="2">
+                </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="min_rep_range" class="form-label">Min Rep Range</label>
+                    <input type="number" id="min_rep_range" class="form-control" min="1" value="3">
+                </div>
+                <div class="col-md-4">
+                    <label for="max_rep_range" class="form-label">Max Rep Range</label>
+                    <input type="number" id="max_rep_range" class="form-control" min="1" value="5">
+                </div>
+                <div class="col-md-4">
+                    <label for="weight" class="form-label">Weight</label>
+                    <input type="number" id="weight" class="form-control" min="0" value="100">
+                </div>
+            </div>
+            <button type="button" class="btn btn-success" onclick="addExercise()">Add Exercise</button>
+        </form>
+    </div>
 
-            <!-- Routine Dropdown -->
-            <div class="col-md-4">
-                <label for="routine" class="form-label">Routine</label>
-                <select id="routine" class="form-select">
-                    <option value="">Select Routine</option>
-                </select>
-            </div>
-
-            <!-- Other Input Fields -->
-            <div class="col-md-2">
-                <label for="sets" class="form-label">Sets</label>
-                <input type="number" id="sets" class="form-control" name="sets" min="1" value="1">
-            </div>
-            <div class="col-md-2">
-                <label for="min_rep_range" class="form-label">Min Rep Range</label>
-                <input type="number" id="min_rep_range" class="form-control" name="min_rep_range" min="1" value="3">
-            </div>
-            <div class="col-md-2">
-                <label for="max_rep_range" class="form-label">Max Rep Range</label>
-                <input type="number" id="max_rep_range" class="form-control" name="max_rep_range" min="1" value="5">
-            </div>
-            <div class="col-md-2">
-                <label for="rir" class="form-label">RIR</label>
-                <input type="number" id="rir" class="form-control" name="rir" min="0" value="2">
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <label for="weight" class="form-label">Weight (Kg)</label>
-                <input type="number" id="weight" class="form-control" name="weight" min="0" value="100">
-            </div>
-        </div>
-        <button type="button" class="btn btn-success mt-3" onclick="addExercise()">Add Exercise</button>
-    </form>
-
-    <!-- Workout Plan Table -->
-    <h3 class="mt-5">Your Workout Plan</h3>
-    <table class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Routine</th>
-                <th>Exercise</th>
-                <th>Sets</th>
-                <th>Min Rep Range</th>
-                <th>Max Rep Range</th>
-                <th>RIR</th>
-                <th>Weight</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="workout-plan-table">
-            {% for i, selection in enumerate(user_selection) %}
+    <!-- Display the Workout Plan -->
+    <div class="workout-plan mt-4">
+        <h4>Your Workout Plan</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Routine</th>
+                    <th>Exercise</th>
+                    <th>Primary Muscle Group</th>
+                    <th>Secondary Muscle Group</th>
+                    <th>Tertiary Muscle Group</th>
+                    <th>Sets</th>
+                    <th>Min Rep Range</th>
+                    <th>Max Rep Range</th>
+                    <th>RIR</th>
+                    <th>Weight</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="workout-plan-table">
+                {% for i, selection in enumerate(user_selection) %}
                 <tr>
                     <td>{{ i + 1 }}</td>
-                    <td>{{ selection[0] }}</td>
-                    <td>{{ selection[1] }}</td>
-                    <td>{{ selection[2] }}</td>
-                    <td>{{ selection[3] }}</td>
-                    <td>{{ selection[4] }}</td>
-                    <td>{{ selection[5] }}</td>
-                    <td>{{ selection[6] }}</td>
+                    <td>{{ selection.routine }}</td>
+                    <td>{{ selection.exercise }}</td>
+                    <td>{{ selection.primary_muscle_group }}</td>
+                    <td>{{ selection.secondary_muscle_group }}</td>
+                    <td>{{ selection.tertiary_muscle_group }}</td>
+                    <td>{{ selection.sets }}</td>
+                    <td>{{ selection.min_rep_range }}</td>
+                    <td>{{ selection.max_rep_range }}</td>
+                    <td>{{ selection.rir }}</td>
+                    <td>{{ selection.weight }}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm" onclick="removeExercise('{{ selection[0] }}', '{{ selection[1] }}')">Remove</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="removeExercise('{{ selection.routine }}', '{{ selection.exercise }}')">Remove</button>
                     </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Export Button -->
+    <div class="export-section mt-3">
+        <button class="btn btn-primary" onclick="exportToExcel()">Export to Excel</button>
+    </div>
 </div>
 
 <script>
-    const routineOptions = {
-        "4_week_split": ["A1", "B1", "A2", "B2"],
-        "full_body": ["Fullbody1", "Fullbody2", "Fullbody3"],
-        "push_pull_legs": ["Push1", "Pull1", "Legs1", "Push2", "Pull2", "Legs2"],
-        "2_days_split": ["A", "B"],
-        "upper_lower": ["Upper1", "Lower1", "Upper2", "Lower2"],
-        "3_days_split": ["A", "B", "C"]
-    };
-
-    function updateRoutineOptions() {
-        const splitType = document.getElementById("split_type").value;
-        const routineDropdown = document.getElementById("routine");
-
-        routineDropdown.innerHTML = '<option value="">Select Routine</option>';
-        if (routineOptions[splitType]) {
-            routineOptions[splitType].forEach(option => {
-                const element = document.createElement("option");
-                element.value = option;
-                element.textContent = option;
-                routineDropdown.appendChild(element);
-            });
-        }
+    // Export to Excel
+    function exportToExcel() {
+        window.location.href = "/export_to_excel";
     }
 
     function filterExercises() {
         const filters = {
-            primary_muscle_group: document.getElementById('primary_muscle_group').value,
-            secondary_muscle_group: document.getElementById('secondary_muscle_group').value,
-            tertiary_muscle_group: document.getElementById('tertiary_muscle_group').value,
-            force: document.getElementById('force').value,
-            equipment: document.getElementById('equipment').value,
-            difficulty: document.getElementById('difficulty').value,
+            primary_muscle_group: document.getElementById("Primary Muscle Group").value,
+            secondary_muscle_group: document.getElementById("Secondary Muscle Group").value,
+            tertiary_muscle_group: document.getElementById("Tertiary Muscle Group").value,
+            force: document.getElementById("Force").value,
+            equipment: document.getElementById("Equipment").value,
+            mechanic: document.getElementById("Mechanic").value,
+            difficulty: document.getElementById("Difficulty").value,
         };
 
-        fetch('/filter_exercises', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        fetch("/filter_exercises", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(filters),
         })
-            .then(response => response.json())
-            .then(data => {
-                const exerciseDropdown = document.getElementById('exercise');
-                exerciseDropdown.innerHTML = '';
-                data.forEach(exercise => {
-                    const option = document.createElement('option');
-                    option.value = exercise;
-                    option.textContent = exercise;
-                    exerciseDropdown.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error fetching exercises:', error));
+        .then(response => response.json())
+        .then(data => {
+            const exerciseDropdown = document.getElementById("exercise");
+            exerciseDropdown.innerHTML = "";
+            data.forEach(exercise => {
+                const option = document.createElement("option");
+                option.value = exercise;
+                option.textContent = exercise;
+                exerciseDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Error filtering exercises:", error));
     }
 
     function addExercise() {
-        const exerciseData = {
-            routine: document.getElementById('routine').value,
-            exercise: document.getElementById('exercise').value,
-            sets: document.getElementById('sets').value,
-            min_rep_range: document.getElementById('min_rep_range').value,
-            max_rep_range: document.getElementById('max_rep_range').value,
-            rir: document.getElementById('rir').value,
-            weight: document.getElementById('weight').value,
+        const data = {
+            routine: document.getElementById("routine").value,
+            exercise: document.getElementById("exercise").value,
+            sets: document.getElementById("sets").value,
+            min_rep_range: document.getElementById("min_rep_range").value,
+            max_rep_range: document.getElementById("max_rep_range").value,
+            rir: document.getElementById("rir").value,
+            weight: document.getElementById("weight").value,
         };
 
-        fetch('/add_exercise', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(exerciseData),
+        fetch("/add_exercise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
         })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                location.reload();
-            })
-            .catch(error => console.error('Error adding exercise:', error));
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload();
+        })
+        .catch(error => console.error("Error adding exercise:", error));
     }
 
     function removeExercise(routine, exercise) {
-        fetch('/remove_exercise', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        fetch("/remove_exercise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ routine, exercise }),
         })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                location.reload();
-            })
-            .catch(error => console.error('Error removing exercise:', error));
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload();
+        })
+        .catch(error => console.error("Error removing exercise:", error));
     }
 </script>
 {% endblock %}
