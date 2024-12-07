@@ -1,0 +1,270 @@
+Main muscle group,Sub muscle group,exercise name,equipment
+Chest,Triceps,Barbell Incline Bench Press,Barbell
+Chest,Triceps,Barbell High Incline Bench Press,Barbell
+Chest,Triceps,Barbell Bench Press,Barbell
+Chest,Triceps,Dumbbell Incline Bench Press,Dumbbell
+Chest,Triceps,Dumbbell Incline Chest Flys,Dumbbell
+Chest,Triceps,Dumbbell Bench Press,Dumbbell
+Chest,Triceps,Dumbbell Chest Fly,Dumbbell
+Chest,Triceps,Dumbbell Decline Bench Press,Dumbbell
+Chest,Triceps,Dumbbell Decline Chest Fly,Dumbbell
+Chest,Triceps,Dumbbell Decline Guillotine Bench Press,Dumbbell
+Chest,Triceps,Dumbbell Incline Chest Fly,Dumbbell
+Chest,Triceps,Dumbbell High Incline Bench Press,Dumbbell
+Chest,Triceps,Weighted Dip,Weighted Vest
+Chest,Triceps,Machine Pec Fly,machine
+Chest,Triceps,Machine Chest Press,machine
+Chest,Triceps,Cable Chest Press,Cable
+Chest,Triceps,Cable Pec Fly,Cable
+Chest,Triceps,Cable Decline Bench Press,Cable
+Chest,Triceps,Cable Decline Bench Chest Fly,Cable
+Chest,Triceps,Cable Incline Chest Fly,Cable
+Chest,Triceps,Cable Incline Bench Press,Cable
+Chest,Triceps,Cable Bench Chest Fly,Cable
+Chest,Triceps,Cable Bench Press,Cable
+Chest,Triceps,Cable Decline Bench Chest Fly,Cable
+Chest,Triceps,Cable Decline Bench Press,Cable
+Chest,Triceps,TRX Pec Fly,TRX
+Chest,Triceps,TRX Pushup,TRX
+front-shoulders,Triceps,Barbell Overhead Press,Barbell
+front-shoulders,Triceps,Dumbbell Lateral Raise,Dumbbell
+front-shoulders,Triceps,Dumbbell Seated Overhead Press,Dumbbell
+front-shoulders,Triceps,Dumbbell Standing Bayesian Lateral Raise,Dumbbell
+front-shoulders,Triceps,Dumbbell High Incline Bench Press,Dumbbell
+front-shoulders,Triceps,Dumbbell Bent Arm Lateral Raise,Dumbbell
+front-shoulders,Triceps,Seated Lateral Raise,Dumbbell
+front-shoulders,Triceps,Laying Lateral Raise,Dumbbell
+front-shoulders,Triceps,Machine Overhand Overhead Press,Cable
+front-shoulders,Triceps,Machine Neutral Overhead Press,Cable
+front-shoulders,Triceps,Cable Overhead Press,Cable
+front-shoulders,Triceps,Cable Chest Press,Cable
+front-shoulders,Triceps,Cable Low Single Arm Lateral Raise,Cable
+front-shoulders,Triceps,Cable Low Bilateral Lateral Raise,Cable
+front-shoulders,Triceps,Cable Rope Single Arm Low Lateral Raise,Cable
+front-shoulders,Triceps,Cable Rope Mid Lateral Raise,Cable
+front-shoulders,Triceps,TRX I Raise,TRX
+front-shoulders,Triceps,TRX Pushup,TRX
+front-shoulders,Triceps,TRX Y Raise,TRX
+biceps,,Barbell Curl,Barbell
+biceps,,EZ Bar Preacher Curl,Barbell
+biceps,,EZ Bar Reverse Preacher Curl,Barbell
+biceps,,Dumbbell Curl,Dumbbell
+biceps,,Dumbbell Hammer Curl,Dumbbell
+biceps,,Dumbbell Incline Hammer Curl,Dumbbell
+biceps,,Dumbbell Incline Reverse Curl,Dumbbell
+biceps,,Dumbbell Incline Zottman Curl,Dumbbell
+biceps,,Dumbbell Spider Curl,Dumbbell
+biceps,,Dumbbell Twisting Curl,Dumbbell
+biceps,,Dumbbell Concentration Curl,Dumbbell
+biceps,,Cable Seated Bayesian Reverse Curl,Cable
+biceps,,Cable Seated Bayesian Hammer Curl,Cable
+biceps,,Cable Seated Bayesian Curl,Cable
+biceps,,Cable Bar Curl,Cable
+biceps,,Cable Rope Hammer Curl,Cable
+biceps,,Cable Bayesian Curl,Cable
+biceps,,TRX Curl,TRX
+biceps,,TRX Hammer Curl,TRX
+biceps,,TRX Reverse Curl,TRX
+biceps,,TRX Rotating Row,TRX
+forearms,,Kettlebell Farmers Carry,Kettlebell
+forearms,,Dumbbell Wrist Curl,Dumbbell
+forearms,,Dumbbell Wrist Extension,Dumbbell
+forearms,,Barbell Wrist Curl,Barbell
+forearms,,Dumbbell Reverse Curl,Dumbbell
+forearms,,Barbell Reverse Curl,Barbell
+forearms,,Barbell Behind The Back Wrist Curl,Barbell
+forearms,,Dumbbell Farmer Walk,Dumbbell
+abdominals,,Barbell Situp,Barbell
+obliques,,Dumbbell Russian Twist,Dumbbell
+abdominals,,Laying Leg Raises,Bodyweight
+abdominals,,Hanging Knee Raises,Bodyweight
+obliques,,Kettlebell Windmill,Kettlebell
+abdominals,,Crunches,Bodyweight
+abdominals,,Cable Row Bar Kneeling Crunch,Cable
+abdominals,,Barbell Roll Outs,Barbell
+abdominals,,Machine Roll Outs,machine
+abdominals,,Kettlebell Situp,Kettlebell
+obliques,,Kettlebell Russian Twist,Kettlebell
+abdominals,,Dumbbell Situp,Dumbbell
+abdominals,,Cable Standing Crunch,Cable
+abdominals,,Forearm Plank,Bodyweight
+abdominals,,Dumbbell Crunch,Dumbbell
+abdominals,,TRX Ab Rollout,TRX
+abdominals,,TRX Forearm Plank,TRX
+abdominals,,TRX Hand Plank,TRX
+abdominals,,TRX Kneeling Ab Rollout,TRX
+abdominals,,TRX Knee Tuck,TRX
+abdominals,,TRX Mountain Climber,TRX
+abdominals,,TRX Pike,TRX
+obliques,,Cable Wood Chopper,Cable
+obliques,,Kettlebell Wood Chopper,Kettlebell
+obliques,,Dumbbell Wood Chopper,Dumbbell
+obliques,,Dumbbell Half Kneeling Wood Chopper,Dumbbell
+obliques,,Dumbbell Kneeling Wood Chopper,Dumbbell
+obliques,,Dumbbell Hand Side Plank,Dumbbell
+obliques,,Dumbbell Side Bend,Dumbbell
+obliques,,Cable Oblique Pushdown,Cable
+obliques,,obliques,Cable
+obliques,,Windshield Wiper,Bodyweight
+quads,glutes,Barbell Squat,Barbell
+quads,glutes,Dumbbell Goblet Squat,Dumbbell
+quads,,Machine Leg Extension,Machine
+quads,glutes,Barbell Step Up,Barbell
+quads,glutes,Machine Leg Press,Machine
+quads,glutes,Kettlebell Step Up,Kettlebell
+quads,glutes,Dumbbell Bulgarian Split Squat,Dumbbell
+quads,glutes,Barbell Front Squat Bodybuilding,Barbell
+quads,glutes,Machine Hack Squat,Machine
+quads,glutes,Barbell High Bar Squat,Barbell
+quads,,Kettlebell Single Arm Forward Lunge,Kettlebell
+quads,glutes,Cable Goblet Squat,Cable
+quads,,Barbell Sumo Deadlift,Barbell
+quads,glutes,Barbell Low Bar Squat,Barbell
+quads,glutes,Machine Horizontal Leg Press,Machine
+quads,glutes,Barbell Bulgarian Split Squat,Barbell
+quads,glutes,Kettlebell Goblet Squat,Kettlebell
+quads,glutes,Kettlebell Lateral Lunge (Single),Kettlebell
+quads,,Kettlebell Single Arm Reverse Lunge,Kettlebell
+quads,glutes,Kettlebell Heels Up Goblet Squat,Kettlebell
+quads,glutes,Barbell Front Squat Olympic,Barbell
+quads,glutes,Dumbbell Goblet Bulgarian Split Squat,Dumbbell
+quads,glutes,Barbell Coan Deadlift,Barbell
+quads,glutes,Barbell Forward Lunge,Barbell
+quads,glutes,Barbell Front Rack Step Up,Barbell
+quads,glutes,Barbell Heels Up Back Squat,Barbell
+quads,glutes,Barbell Heels Up Front Squat,Barbell
+quads,glutes,Barbell Lateral Lunge,Barbell
+quads,glutes,Barbell Pause Box Squat,Barbell
+quads,glutes,Barbell Pause Squat,Barbell
+quads,glutes,Barbell Reverse Lunge,Barbell
+quads,glutes,Barbell Split Squat,Barbell
+quads,glutes,Barbell Tap Pause Squat,Barbell
+quads,,Dumbbell Forward Lunge,Dumbbell
+quads,glutes,Dumbbell Goblet Bulgarian Split Squat,Dumbbell
+quads,,Dumbbell Goblet Forward Lunge,Dumbbell
+quads,,Dumbbell Reverse Lunge,Dumbbell
+glutes,lowerback,Barbell Stiff Leg Deadlifts,Barbell
+hamstrings,,Glute Ham Raise,Bodyweight
+hamstrings,,Machine Hamstring Curl,machine
+hamstrings,glutes,Barbell Low Bar Good Morning,Barbell
+hamstrings,glutes,Dumbbell Goblet Good Morning,Dumbbell
+hamstrings,glutes,Dumbbell Romanian Deadlift,Dumbbell
+hamstrings,glutes,Cable Pull Through,Cable
+hamstrings,glutes,Barbell Romanian Deadlift,Barbell
+hamstrings,glutes,Cable Bar Romanian Deadlift,Cable
+hamstrings,glutes,Barbell Staggered Deadlift,Barbell
+hamstrings,glutes,Barbell High Bar Good Morning,Barbell
+hamstrings,glutes,Barbell Single Leg Deadlift,Barbell
+hamstrings,,Dumbbell Staggered Deadlift,Dumbbell
+hamstrings,,Seated Leg Curl,machine
+hamstrings,,Machine Seated Leg Curl,machine
+hamstrings,,Dumbbell Leg Curl,Dumbbell
+hamstrings,,Dumbbell Single Leg Single Arm Deadlift,Dumbbell
+hamstrings,lowerback,Dumbbell Single Leg Stiff Leg Deadlift,Dumbbell
+rear-shoulders,,Cable Rope Face Pulls,Cable
+rear-shoulders,,Machine Reverse Fly,Machine
+rear-shoulders,,Dumbbell Seated Rear Delt Fly,Dumbbell
+rear-shoulders,,Dumbbell Rear Delt Fly,Dumbbell
+rear-shoulders,,Dumbbell Rear Delt Row,Dumbbell
+rear-shoulders,,Dumbbell Laying Reverse Fly,Dumbbell
+rear-shoulders,,Dumbbell Laying Reverse Fly Internally Rotated,Dumbbell
+rear-shoulders,,TRX Rear Delt Fly,TRX
+rear-shoulders,,TRX Rear Delt Row,TRX
+rear-shoulders,,TRX W Raise,TRX
+rear-shoulders,,Internally Rotated Seated Rear Delt Fly,Dumbbell
+rear-shoulders,,Cable Rope Kneeling Face Pull,Cable
+rear-shoulders,,Cable High Reverse Fly,Cable
+rear-shoulders,,Dumbbell Internally Rotated Rear Delt Fly,Dumbbell
+rear-shoulders,,Machine Overhand Row,Machine
+rear-shoulders,,Cable Single Arm Internally Rotated High Reverse Fly,Cable
+rear-shoulders,,Dumbbell Alternating Rear Delt Fly,Dumbbell
+rear-shoulders,,Dumbbell Head On Bench Rear Delt Fly,Dumbbell
+calves,,Machine Standing Calf Raises,Machine
+calves,,Machine Seated Calf Raises,Machine
+calves,,Barbell Calf Raises,Barbell
+calves,,Kettlebell Seated Calf Raise,Kettlebell
+calves,,Dumbbell Calf Raise,Dumbbell
+calves,,Kettlebell Single Leg Calf Raise,Kettlebell
+calves,,Kettlebell Calf Raise,Kettlebell
+calves,,Machine Horizontal Leg Press Calf Jump,Machine
+calves,,Machine Horizontal Leg Press Calf Raise,Machine
+calves,,Barbell Calf Jump,Barbell
+calves,,Barbell Seated Calf Raise,Barbell
+calves,,Barbell Toes Up Calf Raise,Barbell
+glutes,,Barbell Hip Thrust,Barbell
+traps,glutes,Barbell Deadlift,Barbell
+glutes,,Dumbbell Glute Bridge,Dumbbell
+glutes,quads,Barbell Sumo Deadlift,Barbell
+glutes,,Dumbbell Hip Thrust,Dumbbell
+glutes,,Machine Hip Thrust,Machine
+glutes,,Kettlebell Hip Thrust,Kettlebell
+glutes,quads,Kettlebell Staggered Deadlift (Single),Kettlebell
+glutes,,Kettlebell Glute Bridge,Kettlebell
+glutes,quads,Kettlebell Goblet Good Morning,Kettlebell
+glutes,quads,Kettlebell Single Leg Deadlift,Kettlebell
+glutes,quads,Kettlebell Single Arm Reverse Lunge,Kettlebell
+glutes,,Cable Standing Hip Abduction,Cable
+glutes,lowerback,Cable Standing Straight Leg Glute Kickback,Cable
+glutes,,Kettlebell Single Leg Hip Thrust,Kettlebell
+glutes,,Barbell Glute Bridge,Barbell
+glutes,,Barbell Feet Elevated Glute Bridge,Barbell
+triceps,,Cable Rope Pushdown,Cable
+triceps,Chest,Barbell Close Grip Bench Press,Barbell
+triceps,,Dumbbell Skullcrusher,Dumbbell
+triceps,,Cable Rope Overhead Tricep Extension,Cable
+Chest,triceps,Parralel Bar Dips,machine
+triceps,,Machine Cable V Bar Push Downs,Cable
+triceps,Chest,Dips,machine
+triceps,,Barbell Laying Triceps Extensions,Barbell
+triceps,,Barbell Skullcrusher,Barbell
+triceps,,Cable Cross Pushdown,Cable
+triceps,,Cable Rope Skullcrusher,Cable
+triceps,,Barbell Overhead Tricep Extension,Barbell
+triceps,,Dumbbell Seated Overhead Tricep Extension,Dumbbell
+triceps,,Kettlebell Standing Tricep Extension,Kettlebell
+triceps,,Dumbbell Decline Skullcrusher,Dumbbell
+triceps,,Dumbbell Rolling Tricep Extension,Dumbbell
+triceps,,Dumbbell Overhead Tricep Extension,Dumbbell
+triceps,,Dumbbell Tricep Kickback,Dumbbell
+triceps,,Dumbbell Single Arm Overhead Tricep Extension,Dumbbell
+triceps,,Dumbbell Tate Press,Dumbbell
+triceps,,TRX Skullcrusher,TRX
+triceps,,Barbell Hooklying Bench Press,Barbell
+triceps,,Barbell Spoto Press,Barbell
+triceps,,Cable Bar Pushdown,Cable
+triceps,,Cable Tricep Kickback,Cable
+triceps,,Cable Single Arm Rope Pushdown,Cable
+triceps,,Cable Single Arm Skullcrusher,Cable
+lats,biceps,Chin Ups,machine
+lats,traps-middle,Dumbbell Row Unilateral,Dumbbell
+lats,traps-middle,Pull Ups,machine
+lats,,Cable Bent Over Bar Pullover,Cable
+lats,biceps,Barbell Bent Over Row,Barbell
+lats,biceps,Machine Pulldown,machine
+lats,biceps,Machine Seated Cable Row,machine
+lats,traps-middle,Dumbbell Row Bilateral,Dumbbell
+lats,,Kettlebell Pullover,Kettlebell
+lats,biceps,Barbell Pronated Pendlay Row,Barbell
+lats,biceps,Barbell Pronated Row,Barbell
+lats,biceps,Barbell Supinated Pendlay Row,Barbell
+lats,biceps,Barbell Supinated Row,Barbell
+lats,,Dumbbell Pullover,Dumbbell
+lats,biceps,Dumbbell Kneeling Single Arm Row,Dumbbell
+lats,biceps,Dumbbell Laying Incline Row,Dumbbell
+lats,biceps,Dumbbell Single Arm Row,Dumbbell
+lats,biceps,TRX Rotating Row,TRX
+lats,biceps,Landmine T Bar Rows,Barbell
+lats,,Cable Rope Pullover,Cable
+lats,biceps,Kettlebell Single Arm Row On Bench,Kettlebell
+lats,biceps,Weighted Chin Ups,machine
+lats,biceps,Weighted Pull Ups,machine
+traps,traps-middle,Kettlebell Silverback Shrug,Kettlebell
+traps-middle,traps,Dumbbell Laying Silverback Shrug,Dumbbell
+rear-shoulders,traps-middle,Kettlebell Rear Delt Row (Double),Kettlebell
+rear-shoulders,traps-middle,Dumbbell Seated Rear Delt Row,Dumbbell
+traps,,Barbell Silverback Shrug,Barbell
+traps,,Dumbbell Shrug,Dumbbell
+traps,traps-middle,Kettlebell Incline Shrug,Kettlebell
+traps,,Dumbbell Seated Shrug,Dumbbell
+traps,,Barbell Shrug,Barbell
+traps,,Dumbbell Laying 30 Degree Shrug,Dumbbell

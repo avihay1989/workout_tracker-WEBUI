@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light gray background */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    margin: 0 5px;
+}
+
+h2, h3 {
+    color: #343a40; /* Dark gray */
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-select, .form-control {
+    margin-bottom: 10px;
+}
