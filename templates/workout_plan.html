@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Workout Plan</h2>
+
+    <!-- Filters for Exercises -->
+    <div class="filters">
+        <h4>Filter Exercises</h4>
+        <form id="filters-form" class="row">
+            {% for filter_name, filter_options in filters.items() %}
+            <div class="col-md-4">
+                <label for="{{ filter_name }}" class="form-label">{{ filter_name }}</label>
+                <select id="{{ filter_name }}" class="form-select">
+                    <option value="">All</option>
+                    {% for option in filter_options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+        </form>
+        <button id="filter-btn" class="btn btn-primary mt-3">Filter</button>
+    </div>
+
+    <!-- Exercise Selection and Form -->
+    <div class="exercise-selection mt-4">
+        <form id="add-exercise-form">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="routine" class="form-label">Routine</label>
+                    <select id="routine" class="form-select">
+                        {% for split_type, routines in routineOptions.items() %}
+                        <optgroup label="{{ split_type }}">
+                            {% for routine in routines %}
+                            <option value="{{ routine }}">{{ routine }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="exercise" class="form-label">Exercise</label>
+                    <select id="exercise" class="form-select">
+                        {% for exercise in exercises %}
+                        <option value="{{ exercise }}">{{ exercise }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="sets" class="form-label">Sets</label>
+                    <input type="number" id="sets" class="form-control" min="1" value="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="rir" class="form-label">RIR</label>
+                    <input type="number" id="rir" class="form-control" min="0" value="2">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="min_rep_range" class="form-label">Min Rep Range</label>
+                    <input type="number" id="min_rep_range" class="form-control" min="1" value="3">
+                </div>
+                <div class="col-md-4">
+                    <label for="max_rep_range" class="form-label">Max Rep Range</label>
+                    <input type="number" id="max_rep_range" class="form-control" min="1" value="5">
+                </div>
+                <div class="col-md-4">
+                    <label for="weight" class="form-label">Weight</label>
+                    <input type="number" id="weight" class="form-control" min="0" value="100">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add Exercise</button>
+        </form>
+    </div>
+
+    <!-- Display the Workout Plan -->
+    <div class="workout-plan mt-4">
+        <h4>Your Workout Plan</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Routine</th>
+                    <th>Exercise</th>
+                    <th>Primary Muscle Group</th>
+                    <th>Secondary Muscle Group</th>
+                    <th>Tertiary Muscle Group</th>
+                    <th>Sets</th>
+                    <th>Min Rep Range</th>
+                    <th>Max Rep Range</th>
+                    <th>RIR</th>
+                    <th>Weight</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="workout-plan-table">
+                <!-- Dynamically populated via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Export Button -->
+    <div class="export-section mt-3">
+        <button class="btn btn-primary" onclick="exportToExcel()">Export to Excel</button>
+    </div>
+</div>
+
+<script>
+    async function fetchWorkoutPlan() {
+        try {
+            const response = await fetch("/get_workout_plan");
+            if (!response.ok) throw new Error("Failed to fetch workout plan.");
+            const data = await response.json();
+            reloadWorkoutPlan(data);
+        } catch (error) {
+            console.error("Error loading workout plan:", error);
+        }
+    }
+
+    function reloadWorkoutPlan(data) {
+        const tableBody = document.getElementById("workout-plan-table");
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        data.forEach((item, index) => {
+            const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.routine}</td>
+                    <td>${item.exercise}</td>
+                    <td>${item.primary_muscle_group || "N/A"}</td>
+                    <td>${item.secondary_muscle_group || "N/A"}</td>
+                    <td>${item.tertiary_muscle_group || "N/A"}</td>
+                    <td>${item.sets}</td>
+                    <td>${item.min_rep_range}</td>
+                    <td>${item.max_rep_range}</td>
+                    <td>${item.rir}</td>
+                    <td>${item.weight}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" 
+                                onclick="removeExercise('${item.routine}', '${item.exercise}')">Remove</button>
+                    </td>
+                </tr>`;
+            tableBody.insertAdjacentHTML("beforeend", row);
+        });
+    }
+
+    async function addExercise() {
+        const exerciseData = {
+            routine: document.getElementById("routine").value,
+            exercise: document.getElementById("exercise").value,
+            sets: document.getElementById("sets").value,
+            min_rep_range: document.getElementById("min_rep_range").value,
+            max_rep_range: document.getElementById("max_rep_range").value,
+            rir: document.getElementById("rir").value,
+            weight: document.getElementById("weight").value,
+        };
+
+        try {
+            const response = await fetch("/add_exercise", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(exerciseData),
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || "Failed to add exercise.");
+
+            reloadWorkoutPlan(data.data);
+            showToast(data.message, false);
+        } catch (error) {
+            console.error("Error adding exercise:", error);
+            showToast("Unable to add exercise. Please try again.", true);
+        }
+    }
+
+    async function removeExercise(routine, exercise) {
+        try {
+            const response = await fetch("/remove_exercise", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ routine, exercise }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || "Failed to remove exercise.");
+
+            reloadWorkoutPlan(data.data);
+            showToast(data.message, false);
+        } catch (error) {
+            console.error("Error removing exercise:", error);
+            showToast("Unable to remove exercise. Please try again.", true);
+        }
+    }
+
+    function showToast(message, isError = false) {
+        const toastBody = document.getElementById("toast-body");
+        toastBody.innerText = message;
+
+        const toastElement = document.getElementById("liveToast");
+        toastElement.classList.remove("bg-success", "bg-danger");
+        toastElement.classList.add(isError ? "bg-danger" : "bg-success");
+
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchWorkoutPlan();
+
+        document.getElementById("filter-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            filterExercises();
+        });
+
+        document.getElementById("add-exercise-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            addExercise();
+        });
+    });
+</script>
+{% endblock %}

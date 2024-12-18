@@ -1,0 +1,22 @@
+<div class="mb-3">
+    <label for="routineType" class="form-label">Split Type</label>
+    <select id="routineType" class="form-select" onchange="populateRoutines()">
+        <option value="">Select Split Type</option>
+        {% for split_type in routineOptions.keys() %}
+        <option value="{{ split_type }}">{{ split_type }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="routine" class="form-label">Routine</label>
+    <select id="routine" name="routine" class="form-select">
+        <option value="">Select Routine</option>
+    </select>
+</div>
+
+<!-- Declare the routineOptions variable globally -->
+<script>
+    window.routineOptions = JSON.parse('{{ routineOptions | tojson | safe }}');
+</script>
+<script src="{{ url_for('static', filename='js/populateRoutines.js') }}"></script>
